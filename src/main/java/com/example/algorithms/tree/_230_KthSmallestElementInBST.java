@@ -2,25 +2,26 @@ package com.example.algorithms.tree;
 
 import com.example.algorithms.levelordertraversal.TreeNode;
 
-import java.util.PriorityQueue;
-
 public class _230_KthSmallestElementInBST {
+    private int result = 0;
+    private int count = 0;
+
     public int kthSmallest(TreeNode root, int k) {
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((v1, v2) -> v2 - v1);
-        inOrder(root, k, maxHeap);
-        return maxHeap.isEmpty() ? 0 : maxHeap.peek();
+        inOrder(root, k);
+        return result;
     }
 
-    private void inOrder(TreeNode current, int k, PriorityQueue<Integer> maxHeap) {
+    private void inOrder(TreeNode current, int k) {
         if (current == null) return;
-        inOrder(current.left, k, maxHeap);
-        if (maxHeap.size() < k) {
-            maxHeap.offer(current.val);
-        } else if (current.val < maxHeap.peek()) {
-            maxHeap.poll();
-            maxHeap.offer(current.val);
+        inOrder(current.left, k);
+        count++;
+
+        if (count == k) {
+            result = current.val;
+            return;
         }
-        inOrder(current.right, k, maxHeap);
+
+        inOrder(current.right, k);
     }
 
     public static void main(String[] args) {
