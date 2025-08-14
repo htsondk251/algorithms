@@ -1,4 +1,4 @@
-package com.example.algorithms.graph;
+package com.example.datastructures.graph;
 
 import java.util.*;
 

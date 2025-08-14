@@ -1,4 +1,4 @@
-package com.example.algorithms.unionfind;
+package com.example.datastructures.unionfind;
 
 /**
  * @version 1.0

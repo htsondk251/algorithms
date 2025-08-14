@@ -1,4 +1,4 @@
-package com.example.algorithms.tree;
+package com.example.datastructures.tree;
 
 import com.example.algorithms.levelordertraversal.TreeNode;
 

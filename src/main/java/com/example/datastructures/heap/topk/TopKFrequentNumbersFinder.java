@@ -1,4 +1,4 @@
-package com.example.algorithms.heap.topk;
+package com.example.datastructures.heap.topk;
 
 import java.util.*;
 
