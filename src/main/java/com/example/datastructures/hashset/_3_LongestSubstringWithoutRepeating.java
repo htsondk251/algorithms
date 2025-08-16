@@ -6,26 +6,19 @@ import java.util.Set;
 public class _3_LongestSubstringWithoutRepeating {
     public int lengthOfLongestSubstring(String str) {
         int maxLength = 0;
-        char[] chars = str.toCharArray();
-        int n = chars.length;
-        Set<Character> uniqueChars = new HashSet<>();
+        Set<Character> window = new HashSet<>();
         int start = 0, end = 0;
-        while (end < n) {
-            if (uniqueChars.add(chars[end])) {
-                end++;
-            } else {
-                //tinh maxLength
-                maxLength = Math.max(maxLength, end - start);
-                //loai bo char trung
-                while (start < end && chars[start] != chars[end]) {
-                    uniqueChars.remove(chars[start]);
-                    start++;
-                }
+        while (end < str.length()) {
+            char c = str.charAt(end);
+            while (window.contains(c)) {
+                window.remove(str.charAt(start));
                 start++;
-                end++;
             }
+            window.add(c);
+            maxLength = Math.max(maxLength, end - start + 1);
+            end++;
         }
-        return Math.max(maxLength, end - start);
+        return maxLength;
     }
 
     public static void main(String[] args) {
