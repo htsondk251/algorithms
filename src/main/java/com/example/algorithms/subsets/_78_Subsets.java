@@ -9,13 +9,12 @@ public class _78_Subsets {
         subsets.add(new ArrayList<>());
 
         for (int num : nums) {
-            List<List<Integer>> currentLevelSubsets = new ArrayList<>();
-            for (List<Integer> subset : subsets) {
-                List<Integer> clone = new ArrayList<>(subset);
+            int n = subsets.size();
+            for (int i=0; i <n; i++) {
+                List<Integer> clone = new ArrayList<>(subsets.get(i));
                 clone.add(num);
-                currentLevelSubsets.add(clone);
+                subsets.add(clone);
             }
-            subsets.addAll(currentLevelSubsets);
         }
         return subsets;
     }
