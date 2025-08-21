@@ -12,6 +12,10 @@ public class _39_CombinationSum {
         return result;
     }
 
+    //todo: refactor into standard backtracking
+    //add
+    //backtrack
+    //remove
     private void findCombinationRecursive(int[] candidates, int target, int start, List<Integer> currentList) {
         for (int i = start; i < candidates.length; i++) {
             if (target - candidates[i] == 0) {
