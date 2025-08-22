@@ -1,36 +1,64 @@
 package com.example.algorithms.backtrack;
 
 public class _79_WordSearch {
-    private boolean result;
-    public boolean exist(char[][] board, String word) {
-        boolean[][] visited = new boolean[board.length][board[0].length];
-        backtrack(board, word, visited, 0, 0, 0);
-        return result;
-    }
-
-    private void backtrack(char[][] board,
-                              String word,
-                              boolean[][] visited,
-                              int row, int col, int wordPos) {
-        int rowLimit = board.length - 1;
-        int colLimit = board[0].length - 1;
-        int wordLimit = word.toCharArray().length - 1;
-        if (result || wordPos > wordLimit) {
-            result = true;
-            return;
-        }
-        if (row > rowLimit || row < 0 || col < 0 || col > colLimit || visited[row][col]) return;
-        if (board[row][col] == word.charAt(wordPos) && wordPos < wordLimit) {
-            visited[row][col] = true;
-            for (int i = row-1; i < row+2; i+=2) {
-                for (int j = col-1; j < col + 2; j+=2) {
-                    backtrack(board, word, visited, i, j, wordPos + 1);
+    public static boolean exist(char[][] board, String word) {
+        int rows = board.length;
+        int cols = board[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (backtrack(board, word, new boolean[board.length][board[0].length], i, j, 0)) {
+                    return true;
                 }
             }
         }
+        return false;
+    }
+
+    private static boolean backtrack(char[][] board,
+                              String word,
+                              boolean[][] visited,
+                              int row, int col, int wordPos) {
+        int rows = board.length;
+        int cols = board[0].length;
+        if (wordPos == word.length()) {
+            return true;
+        }
+        if (row > rows - 1 || row < 0 || col < 0 || col > cols - 1 ||
+                visited[row][col] ||
+                board[row][col] != word.charAt(wordPos)) {
+            return false;
+        }
+
+        visited[row][col] = true;
+
+        boolean found =
+                backtrack(board, word, visited, row - 1, col, wordPos + 1) ||
+                backtrack(board, word, visited, row + 1, col, wordPos + 1) ||
+                backtrack(board, word, visited, row, col - 1, wordPos + 1) ||
+                backtrack(board, word, visited, row, col + 1, wordPos + 1);
+
+        visited[row][col] = false;
+
+        return found;
     }
 
     public static void main(String[] args) {
-
+        _79_WordSearch i = new _79_WordSearch();
+        System.out.println(i.exist(new char[][]{
+                {'A', 'B', 'C', 'E'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'E', 'E', 'E'}
+        }, "ABCCED"));
+        System.out.println(i.exist(new char[][]{
+                {'A', 'B', 'C', 'E'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'D', 'E', 'E'}
+        }, "SEE"));
+        System.out.println(i.exist(new char[][]{
+                {'A', 'B', 'C', 'E'},
+                {'S', 'F', 'C', 'S'},
+                {'A', 'D', 'E', 'E'}
+        }, "ABCB"));
+        System.out.println(i.exist(new char[][]{{'a'}}, "a"));
     }
 }
