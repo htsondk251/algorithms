@@ -1,5 +1,8 @@
 package com.example.test.medium;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @version 1.0
  * @description:
@@ -9,15 +12,15 @@ package com.example.test.medium;
 public class _739_DailyTemperatures {
     public int[] dailyTemperatures(int[] temperatures) {
         int n = temperatures.length;
-
+        Deque<Integer> stack = new ArrayDeque<>();
         int[] result = new int[n];
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if (temperatures[j] > temperatures[i]) {
-                    result[i] = j - i;
-                    break;
-                }
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+                int topIdx = stack.pop();
+                result[topIdx] = i - topIdx;
             }
+            stack.push(i);
         }
         return result;
     }
