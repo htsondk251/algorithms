@@ -1,9 +1,5 @@
 package com.example.test.medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @version 1.0
  * @description:
@@ -13,27 +9,21 @@ import java.util.List;
 
 public class _647_PalindromeSubstrings {
     public int countSubstrings(String s) {
-        int n = s.length();
         int count = 0;
+        int n = s.length();
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j <= n; j++) {
-                String sub = s.substring(i, j);
-                if (isPalindrome(sub)) {
-                    count++;
-                }
+        for (int center = 0; center < 2 * n - 1; center++) {
+            int left = center / 2;
+            int right = left + center % 2;
+
+            while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
+                count++;
+                left--;
+                right++;
             }
         }
 
         return count;
-    }
-
-    private boolean isPalindrome(String s) {
-        int l = 0, r = s.length() - 1;
-        while (l < r) {
-            if (s.charAt(l++) != s.charAt(r--)) return false;
-        }
-        return true;
     }
 
 
