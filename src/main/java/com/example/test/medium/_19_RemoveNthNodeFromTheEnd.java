@@ -9,45 +9,43 @@ package com.example.test.medium;
 
 public class _19_RemoveNthNodeFromTheEnd {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode end = head;    //1 from the last
-        ListNode delayN = head; //n+1 from the last
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
 
-        int i = 0;
-        //move end (n) steps forward
-        while (i < n && end.next != null) {
-            end = end.next;
-            i++;
-        }
+        ListNode end = dummy;    //0 from the last
+        ListNode delayNPlus1 = dummy; //n+1 from the last
 
-        if (i == n-1) {
-            head = head.next;
-            return head;
-        } else if (i < n-1){    //size < n
-            return head;
+        //move end pointer n steps forward
+        for (int j = 0; j <= n; j++) {
+            if (end != null) {
+                end = end.next;
+            } else {
+                return head;
+            }
         }
         //move both to the end
-        while (end.next != null) {
+        while (end != null) {
             end = end.next;
-            delayN = delayN.next;
+            delayNPlus1 = delayNPlus1.next;
         }
 
-            delayN.next = delayN.next.next;
+        delayNPlus1.next = delayNPlus1.next.next;
 
-        return head;
+        return dummy.next;
     }
 
     public static void main(String[] args) {
         _19_RemoveNthNodeFromTheEnd i = new _19_RemoveNthNodeFromTheEnd();
-        ListNode head = new ListNode(1);
-        head.next = new ListNode(2);
-        head.next.next = new ListNode(3);
-        head.next.next.next = new ListNode(4);
-        head.next.next.next.next = new ListNode(5);
-        System.out.println(i.removeNthFromEnd(head, 2));
-
 //        ListNode head = new ListNode(1);
 //        head.next = new ListNode(2);
-//        System.out.println(i.removeNthFromEnd(head, 1));
+//        head.next.next = new ListNode(3);
+//        head.next.next.next = new ListNode(4);
+//        head.next.next.next.next = new ListNode(5);
+//        System.out.println(i.removeNthFromEnd(head, 2));
+
+        ListNode head = new ListNode(1);
+        head.next = new ListNode(2);
+        System.out.println(i.removeNthFromEnd(head, 2));
     }
 }
 
