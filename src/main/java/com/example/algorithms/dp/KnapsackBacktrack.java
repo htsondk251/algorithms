@@ -9,16 +9,16 @@ package com.example.algorithms.dp;
 
 public class KnapsackBacktrack {
     public int solveKnapsack(int[] profits, int[] weights, int capacity) {
-        return backtrack(profits, weights, capacity, 0, 0);
+        return backtrack(profits, weights, capacity, 0);
     }
 
 
-    private int backtrack(int[] profits, int[] weights, int capacity, int start, int profit) {
-        if (start >= profits.length || capacity <= 0) return profit;
-        int notInclude = backtrack(profits, weights, capacity, start+1, profit);
-        int include = Integer.MIN_VALUE;
+    private int backtrack(int[] profits, int[] weights, int capacity, int start) {
+        if (start >= profits.length || capacity <= 0) return 0;
+        int notInclude = backtrack(profits, weights, capacity, start+1);
+        int include = 0;
         if (weights[start] <= capacity) {
-            include = backtrack(profits, weights, capacity - weights[start], start+1, profit + profits[start]);
+            include = profits[start] + backtrack(profits, weights, capacity - weights[start], start+1);
         }
         return Math.max(include, notInclude);
     }
