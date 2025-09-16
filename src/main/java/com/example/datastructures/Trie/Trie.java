@@ -113,4 +113,31 @@ public class Trie {
         return true;
     }
 
+    private TrieNode deleteKey(TrieNode node, String key, int depth) {
+        if ( node == null ) return null;
+
+        if ( depth == key.length() ) {
+            if (!node.isEnd) return null;
+            node.isEnd = false;
+
+            if (hasNoChild(node)) {
+                node = null;
+            }
+        }
+
+        int index = key.charAt(depth) - 'a';
+        node.children[index] = deleteKey(node.children[index], key, depth + 1);
+
+        if (!node.isEnd && hasNoChild(node)) {
+            node = null;
+        }
+
+        return node;
+
+    }
+
+    public TrieNode deleteKey(String key) {
+        return deleteKey(root, key, 0);
+    }
+
 }
