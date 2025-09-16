@@ -1,4 +1,4 @@
-package com.example.datastructures.Trie;
+package com.example.datastructures.trie;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -10,7 +10,7 @@ import java.util.Deque;
  * @date: 15/09/2025 13:25
  */
 public class Trie {
-    private TrieNode root; // Root of the Trie
+    TrieNode root; // Root of the Trie
 
     public Trie() {
         root = new TrieNode();

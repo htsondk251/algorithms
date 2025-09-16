@@ -1,4 +1,4 @@
-package com.example.datastructures.Trie;
+package com.example.datastructures.trie;
 
 /**
  * @version 1.0
