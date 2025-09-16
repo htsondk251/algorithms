@@ -1,5 +1,8 @@
 package com.example.datastructures.Trie;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * @version 1.0
  * @description:
@@ -40,8 +43,10 @@ public class Trie {
     }
 
     public boolean delete(String word) {
-        return canDelete(root, word, 0);
+//        return canDelete(root, word, 0);
+        return deleteIterative(root, word);
     }
+
 
     private boolean canDelete(TrieNode node, String word, int depth) {
 
@@ -74,6 +79,37 @@ public class Trie {
                 return false;
             }
         }
+        return true;
+    }
+
+    private boolean deleteIterative(TrieNode root, String word) {
+        if (root == null || word == null || word.isEmpty()) {return false;}
+        Deque<Pair> stack = new ArrayDeque<>();
+        TrieNode currNode = root;
+
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (currNode.children[index] == null) {
+                return false;
+            }
+            stack.push(new Pair(currNode, index));
+            currNode = currNode.children[index];
+        }
+
+        if (!currNode.isEnd) {return false;}
+        currNode.isEnd = false;
+
+        if (!hasNoChild(currNode)) return true;
+
+        while (!stack.isEmpty()) {
+            Pair pair = stack.pop();
+            TrieNode parent = pair.node;
+            int index = pair.index;
+            parent.children[index] = null;
+
+            if (parent.isEnd || !hasNoChild(parent)) { break; }
+        }
+
         return true;
     }
 
