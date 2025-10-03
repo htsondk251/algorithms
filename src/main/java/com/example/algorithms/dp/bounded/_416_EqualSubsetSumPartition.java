@@ -1,4 +1,4 @@
-package com.example.algorithms.dp;
+package com.example.algorithms.dp.bounded;
 
 /**
  * @version 1.0
